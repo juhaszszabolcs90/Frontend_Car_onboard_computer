@@ -17,7 +17,7 @@ export default defineComponent({
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color: #333;
+  background-color: #292929;
   color: white;
 }
 </style>

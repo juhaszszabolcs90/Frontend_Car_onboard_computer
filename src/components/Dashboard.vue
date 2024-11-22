@@ -12,7 +12,7 @@ import settingsIcon from "@/assets/settings-icon.png";
     <div class="dashboard">
       <div class="speed-display">
         <p class="speed">{{ currentSpeed }} <span>km/h</span></p>
-        <p class="mode-display">Üzemmód: <span :class="currentMode">{{ currentMode }}</span></p>
+        <p class="mode-display"><span :class="currentMode">{{ currentMode }}</span></p>
       </div>
       <div class="info-container">
         <p class="battery">Akkumulátor: {{ batteryLevel }}%</p>
@@ -162,7 +162,8 @@ export default {
 }
 
 .mode-button:hover {
-  background-color: #444;
+  background-color: #2e2e2e;
+  color: #222;
   border-color: #007BFF;
   transform: scale(1.1);
 }
@@ -179,5 +180,10 @@ export default {
   height: 30px;
   bottom: 5px;
   right: 2px;
+  transition: transform 0.3s; /* Smooth transition for scaling */
+}
+
+.settings-icon:hover {
+  transform: scale(1.4); /* Increase the icon size on hover */
 }
 </style>

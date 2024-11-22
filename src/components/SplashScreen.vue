@@ -40,7 +40,7 @@ export default {
 }
 
 .car-image {
-  width: 300px; /* Autó szélesség beállítása */
+  width: 500px; /* Autó szélesség beállítása */
   height: auto; /* Az autó magassága arányosan változik */
 }
 
