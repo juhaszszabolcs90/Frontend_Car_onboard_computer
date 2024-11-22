@@ -1,15 +1,35 @@
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
+// Importáljuk az ikonokat
+import checkEngineImage from './assets/check-engine-sign.png';
+import ecoImage from './assets/eco-sign.png';
+import sportImage from './assets/spinning-wheel.png';
+import settingsIcon from './assets/settings-icon.png'; // Az új settings ikon
 </script>
 
 <template>
   <main>
-    <h1>Autó fedélzeti számítógép</h1>
+    <!-- <h1>Autó fedélzeti számítógép</h1> -->
+    <h1>Üzemmódválasztás</h1>
+
+    <!-- Központi kijelző -->
+    <div class="dashboard">
+      <div class="speed-display">
+        <p class="speed">{{ currentSpeed }} <span>km/h</span></p>
+        <p class="mode-display">_<span :class="currentMode">{{ currentMode }}</span></p>
+      </div>
+      <div class="info-container">
+        <p class="battery">Akkumulátor: {{ batteryLevel }}%</p>
+        <p class="range">Hatótáv: {{ range }} km</p>
+      </div>
+    </div>
+
+    <!-- Üzemmódok kiválasztása -->
     <div class="modes-container">
       <button
         v-for="mode in modes"
         :key="mode"
         class="mode-button"
+        @click="changeMode(mode)"
       >
         <img
           v-if="mode === 'normal'"
@@ -26,49 +46,47 @@
         <img
           v-else-if="mode === 'sport'"
           :src="sportImage"
-          alt="Spinning wheel"
+          alt="Sport"
           class="icon"
         />
-        {{ mode }}
-      </button>
 
-      <!-- Csak akkor jelenjen meg a "+" gomb, ha kevesebb mint 3 üzemmód van -->
-      <button
-        v-if="canAddMore"
-        class="add-button"
-        @click="addMode"
-      >
-        +
+        <!-- Settings ikon -->
+        <img
+          :src="settingsIcon"
+          alt="Settings"
+          class="settings-icon"
+        />
+        {{ mode }}
       </button>
     </div>
   </main>
 </template>
 
 <script>
-import checkEngineImage from './assets/check-engine-sign.png'; // A kép importálása
-import ecoImage from './assets/eco-sign.png'; // A kép importálása
-import sportImage from './assets/spinning-wheel.png'; // A kép importálása
-
+// Logikai részek hozzáadása
 export default {
   name: 'App',
   data() {
     return {
-      modes: ["normal"], // Kezdő üzemmód
-      availableModes: ["eco", "sport"], // Hozzáadható üzemmódok
+      modes: ["normal", "eco", "sport"], // Módok listája
+      currentMode: "eco", // Induláskor az alapértelmezett mód
+      batteryLevel: 100, // Akkumulátor szint induláskor
+      range: 650, // Kezdő hatótáv eco módban
+      currentSpeed: 0, // Az autó áll (sebesség 0 km/h)
     };
   },
-  computed: {
-    // Számított tulajdonság, hogy ellenőrizze, lehet-e még több módot hozzáadni
-    canAddMore() {
-      return this.modes.length < 3;
-    },
-  },
   methods: {
-    // Új mód hozzáadása
-    addMode() {
-      const nextMode = this.availableModes.shift(); // Következő elérhető mód
-      if (nextMode) {
-        this.modes = [...this.modes, nextMode];
+    // Üzemmód váltás
+    changeMode(mode) {
+      this.currentMode = mode;
+
+      // Hatótáv változása az üzemmód alapján
+      if (mode === "eco") {
+        this.range = 650; // Eco mód hatótáv
+      } else if (mode === "sport") {
+        this.range = 400; // Sport mód hatótáv
+      } else {
+        this.range = 580; // Normál mód hatótáv
       }
     },
   },
@@ -76,59 +94,119 @@ export default {
 </script>
 
 <style scoped>
-/* A fő konténer középre igazítása és méretezése */
-.modes-container {
-  display: flex; /* Gombok egymás mellé helyezése */
-  gap: 40px; /* Gombok közötti távolság */
-  justify-content: center; /* Gombok középre igazítása */
-  width: 80%; /* Konténer szélessége a képernyő 70%-a */
-  margin: 0 auto; /* Középre helyezés */
-  padding: 20px 0; /* Felső-alsó térköz */
+/* Központi kijelző styling */
+.dashboard {
+  background: #222;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative; /* Pozíció a gyerek elemekhez */
 }
 
-/* Gombok nagyobb mérettel */
-.mode-button, .add-button {
+.speed-display {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.speed span {
+  font-size: 18px;
+  color: #bbb;
+}
+
+.mode-display span {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: #007BFF; /* Normál esetben kék */
+}
+
+.mode-display span.eco {
+  color: #28a745; /* Eco zöld */
+}
+
+.mode-display span.sport {
+  color: #dc3545; /* Sport piros */
+}
+
+/* Akkumulátor és hatótáv pozícionálása */
+.info-container {
+  position: absolute;
+  bottom: 7px;
+  left: 20px;
+  right: 20px;
   display: flex;
+  justify-content: space-between; /* Elemek két oldalra rendezése */
+}
+
+.battery {
+  font-size: 16px;
+  color: #ffc107;
+  text-align: left; /* Balra igazítás */
+}
+
+.range {
+  font-size: 16px;
+  color: #17a2b8; /* Kékes szín a hatótávhoz */
+  text-align: right; /* Jobbra igazítás */
+}
+
+/* Gombok */
+.modes-container {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+}
+
+.mode-button {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto; /* Automatikusan osztják el a helyet */
-  height: 100px; /* Nagyobb magasság */
-  max-width: 240px; /* Maximális szélesség */
-  border: 2px solid #ccc; /* Vastagabb keret */
-  border-radius: 10px; /* Lekerekített sarkok */
-  background-color: #ffffff; /* Fehér háttérszín */
-  font-size: 18px; /* Nagyobb szövegméret */
-  font-weight: bold; /* Félkövér szöveg */
-  color: #333; /* Sötétebb szöveg */
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #222;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s; /* Hover effektek */
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Hover effektus */
-.mode-button:hover, .add-button:hover {
-  background-color: #f0f0f0; /* Halvány szürke háttér */
-  border-color: #007BFF; /* Kék keret */
-  transform: scale(1.15); /* Enyhe nagyítás */
+.mode-button:hover {
+  color: #555;
+  background-color: #444;
+  border-color: #007BFF;
+  transform: scale(1.1);
 }
 
-/* Ikon mérete */
 .icon {
-  width: 80px; /* Nagyobb ikon szélesség */
-  height: 80px; /* Nagyobb ikon magasság */
-  margin-right: 20px; /* Távolság az ikon és a szöveg között */
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
 }
 
-/* Cím megemelése */
-h1 {
-  margin-bottom: 30px; /* Nagyobb távolság a konténer előtt */
-  font-size: 28px; /* Nagyobb szövegméret */
-  text-align: center; /* Középre igazított szöveg */
-  color: #ffffff; /* Fehér szín */
+/* Settings ikon pozícionálása */
+.settings-icon {
+  position: absolute;
+  width: 30px; /* Kisebb méret */
+  height: 30px;
+  bottom: 5px;
+  right: 2px;
 }
 
-/* Háttér szín a body elemhez (opcionális) */
+/* Háttér és általános stílus */
 body {
-  background-color: #333333; /* Sötétszürke háttér */
-  color: #ffffff; /* Fehér szöveg */
+  background-color: #333;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 </style>
