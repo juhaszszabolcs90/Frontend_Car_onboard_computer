@@ -11,11 +11,11 @@ import { ref, onMounted } from "vue";
 const currentTime = ref("");
 const updateTime = () => {
   const now = new Date();
-  currentTime.value = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  currentTime.value = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
 };
 onMounted(() => {
   updateTime();
-  setInterval(updateTime, 60000); // Frissítés percenként
+  setInterval(updateTime, 1000); // Frissítés percenként
 });
 
 // Dashboard adatok
@@ -117,7 +117,7 @@ const changeMode = (mode) => {
 }
 
 .current-time {
-  font-size: 18px;
+  font-size: 24px;
 }
 
 /* Tartalom */
