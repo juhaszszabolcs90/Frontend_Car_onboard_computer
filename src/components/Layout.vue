@@ -1,5 +1,8 @@
-    <script setup>
+  <script setup>
   import { ref, onMounted } from "vue";
+  import { useRouter } from "vue-router";
+
+  const router = useRouter(); 
   
   // Aktuális idő frissítése
   const currentTime = ref({ hours: "00", minutes: "00", seconds: "00" });
@@ -16,6 +19,16 @@
     updateTime();
     setInterval(updateTime, 1000); // Frissítés másodpercenként
   });
+
+  // Vissza navigálás
+  const goBack = () => {
+    router.back(); // Vissza az előző oldalra
+  };
+
+  // Dashboard-ra navigálás
+  const goToDashboard = () => {
+    router.push({ name: "Dashboard" }); // Dashboard oldalra navigálás
+  };
   </script>
 
 <template>
@@ -36,8 +49,8 @@
 
     <!-- Alsó tálca -->
     <footer class="footer">
-      <button class="footer-button">🏠 <span>Főoldal</span></button>
-      <button class="footer-button">↩️ <span>Vissza</span></button>
+      <button class="footer-button" @click="goToDashboard">🏠 <span>Főoldal</span></button>
+      <button class="footer-button" @click="goBack">↩️ <span>Vissza</span></button>
       <button class="footer-button">⚙️ <span>Beállítások</span></button>
     </footer>
   </div>

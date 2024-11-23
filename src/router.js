@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import SplashScreen from "./components/SplashScreen.vue";
+import LoadingScreen from "./components/LoadingScreen.vue";
 import Dashboard from "./components/Dashboard.vue";
 import ModePage from "./components/ModePage.vue"; // Új komponens importálása
 
 const routes = [
-  { path: "/", component: SplashScreen },
-  { path: "/dashboard", component: Dashboard },
+  { path: "/", component: LoadingScreen },
+  { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { 
     path: "/mode", // Minden üzemmód erre az oldalra irányít
     name: "ModePage",

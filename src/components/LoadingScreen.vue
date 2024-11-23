@@ -1,5 +1,5 @@
 <template>
-  <div class="splash-screen">
+  <div class="loading-screen">
     <h1>Hello Mr</h1>
     <div class="car-container">
       <img src="@/assets/BYD_SEAL.png" alt="BYD Seal" class="car-image" />
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'SplashScreen',
+  name: 'LoadingScreen',
   mounted() {
     // 4 másodperc múlva átirányítjuk a főoldalra (Dashboard)
     setTimeout(() => {
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.splash-screen {
+.loading-screen {
   /* background-color: #000; */
   color: white;
   display: flex;
