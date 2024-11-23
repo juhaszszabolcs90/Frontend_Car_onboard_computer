@@ -1,12 +1,16 @@
 <script setup>
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 // Import ikonok
 import checkEngineImage from "@/assets/check-engine-sign.png";
 import ecoImage from "@/assets/eco-sign.png";
 import sportImage from "@/assets/spinning-wheel.png";
 import settingsIcon from "@/assets/settings-icon.png";
 
+// Router
+const router = useRouter();
+
 // Aktuális idő frissítése
-import { ref, onMounted } from "vue";
 
 const currentTime = ref({ hours: "00", minutes: "00", seconds: "00" });
 
@@ -39,6 +43,12 @@ const changeMode = (mode) => {
   } else {
     range.value = 580;
   }
+};
+
+// Üzemmód váltás és navigáció
+// Csak az ikon navigál az oldalra
+const handleModeNavigation = (mode) => {
+  router.push({ name: "ModePage", query: { mode } });
 };
 </script>
 
@@ -80,18 +90,21 @@ const changeMode = (mode) => {
             :src="checkEngineImage"
             alt="Check engine"
             class="icon"
+            @click.stop="handleModeNavigation(mode)"
           />
           <img
             v-else-if="mode === 'eco'"
             :src="ecoImage"
             alt="Eco"
             class="icon"
+            @click.stop="handleModeNavigation(mode)"
           />
           <img
             v-else-if="mode === 'sport'"
             :src="sportImage"
             alt="Sport"
             class="icon"
+            @click.stop="handleModeNavigation(mode)"
           />
           <img :src="settingsIcon" alt="Settings" class="settings-icon" />
           {{ mode }}
@@ -118,7 +131,7 @@ const changeMode = (mode) => {
 
 /* Fejléc */
 .header {
-  background: #1c1c1c;
+  background: #0d0d2a;
   color: white;
   padding: 10px;
   text-align: center;
@@ -238,13 +251,19 @@ const changeMode = (mode) => {
   background-color: #2e2e2e;
   color: #222;
   border-color: #007BFF;
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .icon {
   width: 50px;
   height: 50px;
   margin-bottom: 10px;
+  transition: transform 0.3s ease-in-out; /* Zökkenőmentes átmenet */
+}
+
+/* Hover állapot - növeli az ikon méretét */
+.icon:hover {
+  transform: scale(1.3); /* 20%-kal nagyobb lesz */
 }
 
 .settings-icon {

@@ -6,3 +6,6 @@ Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://
 
 
 npm install vue-router@4
+
+npm install vue-router
+
