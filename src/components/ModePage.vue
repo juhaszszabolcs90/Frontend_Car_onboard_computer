@@ -10,7 +10,7 @@ const route = useRoute();
   <div class="mode-page">
     <h1>Üzemmód beállítás</h1>
     <div class="content">
-      <p>Itt konfigurálhatod az üzemmódhoz tartozó beállításokat!</p>
+      <!-- <p>Itt konfigurálhatod az üzemmódhoz tartozó beállításokat!</p> -->
       <button class="action-button">🎵 Spotify</button>
       <button class="action-button">🗺️ Navigation</button>
       <button class="action-button">⚙️ Settings</button>
@@ -38,9 +38,10 @@ h1 {
 
 .content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .action-button {

@@ -48,7 +48,8 @@
   #layout {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100vh;  /* Teljes képernyőt elfoglal */
+    overflow: hidden; /* Eltünteti a görgetősávot */
   }
   
   /* Fejléc */
@@ -75,6 +76,20 @@
   .current-time .seconds {
     font-size: 20px;
     opacity: 0.7;
+  }
+
+  /* Tartalom (oldalak) */
+main {
+    flex: 1; /* Elfoglalja a szabad teret a fejléc és tálca között */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, #0a0a2a, #0d0d2a 50%, #292929 50%);
+    /* overflow-y: auto; Görgetés engedélyezése, ha szükséges, de nem a fő layout */
+    overflow: hidden;  /* Görgetősáv eltüntetése */
+    padding-top: 130px;
   }
   
   /* Alsó tálca */

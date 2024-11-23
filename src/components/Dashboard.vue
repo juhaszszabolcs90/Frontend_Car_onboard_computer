@@ -42,7 +42,6 @@ const handleModeNavigation = (mode) => {
   <Layout>
   <div id="app">
     <!-- Dashboard tartalom -->
-    <main class="main-content">
       <div class="dashboard">
         <div class="speed-display">
           <p class="speed">{{ currentSpeed }} <span>km/h</span></p>
@@ -87,7 +86,6 @@ const handleModeNavigation = (mode) => {
           {{ mode }}
         </button>
       </div>
-    </main>
   </div>
   </Layout>
 </template>
@@ -98,17 +96,6 @@ const handleModeNavigation = (mode) => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-/* Tartalom */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start; /* Dashboard és gombok közelebb egymáshoz */
-  background: linear-gradient(to bottom, #0a0a2a, #0d0d2a 50%, #292929 50%);
-  padding-top: 130px;
 }
 
 .dashboard {
