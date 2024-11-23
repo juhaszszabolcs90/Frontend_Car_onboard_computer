@@ -8,10 +8,14 @@ import settingsIcon from "@/assets/settings-icon.png";
 // Aktuális idő frissítése
 import { ref, onMounted } from "vue";
 
-const currentTime = ref("");
+const currentTime = ref({ hours: "00", minutes: "00", seconds: "00" });
+
 const updateTime = () => {
   const now = new Date();
-  currentTime.value = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const hours = now.getHours().toString().padStart(2, "0");
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const seconds = now.getSeconds().toString().padStart(2, "0");
+  currentTime.value = { hours, minutes, seconds };
 };
 onMounted(() => {
   updateTime();
@@ -42,7 +46,12 @@ const changeMode = (mode) => {
   <div id="app">
     <!-- Fejléc: Aktuális idő -->
     <header class="header">
-      <p class="current-time">{{ currentTime }}</p>
+          <!-- Idő kijelzése -->
+    <div class="current-time">
+        <span class="hours">{{ currentTime.hours }}</span>:
+        <span class="minutes">{{ currentTime.minutes }}</span>:
+        <span class="seconds">{{ currentTime.seconds }}</span>
+      </div>
     </header>
 
     <!-- Dashboard tartalom -->
@@ -116,8 +125,21 @@ const changeMode = (mode) => {
   border-bottom: 1px solid #444;
 }
 
+/* Idő kijelzése */
 .current-time {
-  font-size: 24px;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.current-time .hours,
+.current-time .minutes {
+  font-size: 28px;
+}
+
+.current-time .seconds {
+  font-size: 20px;
+  opacity: 0.7; /* Halványabb szín a másodperceknek */
 }
 
 /* Tartalom */
