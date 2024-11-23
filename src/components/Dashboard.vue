@@ -6,25 +6,11 @@ import checkEngineImage from "@/assets/check-engine-sign.png";
 import ecoImage from "@/assets/eco-sign.png";
 import sportImage from "@/assets/spinning-wheel.png";
 import settingsIcon from "@/assets/settings-icon.png";
+// Importáljuk a Layout komponenst
+import Layout from "./Layout.vue";
 
 // Router
 const router = useRouter();
-
-// Aktuális idő frissítése
-
-const currentTime = ref({ hours: "00", minutes: "00", seconds: "00" });
-
-const updateTime = () => {
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, "0");
-  const minutes = now.getMinutes().toString().padStart(2, "0");
-  const seconds = now.getSeconds().toString().padStart(2, "0");
-  currentTime.value = { hours, minutes, seconds };
-};
-onMounted(() => {
-  updateTime();
-  setInterval(updateTime, 1000); // Frissítés percenként
-});
 
 // Dashboard adatok
 const modes = ["normal", "eco", "sport"];
@@ -53,17 +39,8 @@ const handleModeNavigation = (mode) => {
 </script>
 
 <template>
+  <Layout>
   <div id="app">
-    <!-- Fejléc: Aktuális idő -->
-    <header class="header">
-          <!-- Idő kijelzése -->
-    <div class="current-time">
-        <span class="hours">{{ currentTime.hours }}</span>:
-        <span class="minutes">{{ currentTime.minutes }}</span>:
-        <span class="seconds">{{ currentTime.seconds }}</span>
-      </div>
-    </header>
-
     <!-- Dashboard tartalom -->
     <main class="main-content">
       <div class="dashboard">
@@ -111,14 +88,8 @@ const handleModeNavigation = (mode) => {
         </button>
       </div>
     </main>
-
-    <!-- Alsó tálca -->
-    <footer class="footer">
-      <button class="footer-button">🏠 <span>Főoldal</span></button>
-      <button class="footer-button">↩️ <span>Vissza</span></button>
-      <button class="footer-button">⚙️ <span>Beállítások</span></button>
-    </footer>
   </div>
+  </Layout>
 </template>
 
 <style scoped>
@@ -127,32 +98,6 @@ const handleModeNavigation = (mode) => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
-
-/* Fejléc */
-.header {
-  background: #0d0d2a;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  border-bottom: 1px solid #444;
-}
-
-/* Idő kijelzése */
-.current-time {
-  font-size: 28px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.current-time .hours,
-.current-time .minutes {
-  font-size: 28px;
-}
-
-.current-time .seconds {
-  font-size: 20px;
-  opacity: 0.7; /* Halványabb szín a másodperceknek */
 }
 
 /* Tartalom */
@@ -277,29 +222,5 @@ const handleModeNavigation = (mode) => {
 
 .settings-icon:hover {
   transform: scale(1.5); /* Nagyítás hoverre */
-}
-
-/* Alsó tálca */
-.footer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #292929;
-  padding: 10px 0;
-  border-top: 1px solid #444;
-}
-
-.footer-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.footer-button:hover {
-  transform: scale(1.2);
-  color: #007bff;
 }
 </style>

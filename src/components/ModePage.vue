@@ -1,10 +1,12 @@
 <script setup>
 import { useRoute } from "vue-router";
+import Layout from "./Layout.vue";
 
 const route = useRoute();
 </script>
 
 <template>
+    <Layout>
   <div class="mode-page">
     <h1>Üzemmód beállítás</h1>
     <div class="content">
@@ -14,6 +16,7 @@ const route = useRoute();
       <button class="action-button">⚙️ Settings</button>
     </div>
   </div>
+</Layout>
 </template>
 
 <style scoped>
