@@ -22,7 +22,13 @@
 
   // Vissza navigálás
   const goBack = () => {
-    router.back(); // Vissza az előző oldalra
+    console.log(router.currentRoute.value.name);
+        // Ha a jelenlegi oldal Dashboard, akkor visszavisszük a felhasználót
+    if (router.currentRoute.value.name !== 'Dashboard') {
+      router.back(); // Térjünk vissza az előző oldalra
+    } else {
+      router.push({ name: 'Dashboard' });
+    }
   };
 
   // Dashboard-ra navigálás
