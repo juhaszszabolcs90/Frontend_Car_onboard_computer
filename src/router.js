@@ -4,7 +4,7 @@ import Dashboard from "./components/Dashboard.vue";
 import ModePage from "./components/ModePage.vue"; // Új komponens importálása
 
 const routes = [
-  { path: "/", component: LoadingScreen },
+  { path: "/Frontend_Car_onboard_computer", component: LoadingScreen },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
   { 
     path: "/mode", // Minden üzemmód erre az oldalra irányít
